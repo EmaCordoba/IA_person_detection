@@ -7,6 +7,11 @@ model = YOLO("yolov8n.pt")
 # Open the default camera
 cam = cv2.VideoCapture(0)
 
+# Verifica si la cámara se abre correctamente
+if not cam.isOpened():
+    print("Error: No se pudo abrir la cámara.")
+    exit()
+
 # Get the default frame width and height
 frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
 frame_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -15,6 +20,10 @@ while True:
     start_time = time.time()
     ret, frame = cam.read()
 
+    if not ret:
+        print("Error al capturar el frame.")
+        break
+    
     # Realizar la detección
     results = model(frame,classes=[0])
 
