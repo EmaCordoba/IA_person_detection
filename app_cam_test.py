@@ -1,8 +1,10 @@
 from picamera2 import Picamera2
 import cv2
 
-# Inicializa la cámara
-picam2 = Picamera2()
+
+# Inicializa la cámara y configura el video para una resolución de 640x480
+config = picam2.create_video_configuration(main={"size": (640, 480)})
+picam2.configure(config)
 picam2.start()
 
 while True:
